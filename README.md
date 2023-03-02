@@ -25,7 +25,7 @@ It is recommended to run SAD Script on an Ubuntu Desktop 22.x.x Virtual Machine.
 
 Clone the repo into any directory you'd like. 
 ```
-git clone >repo<
+git clone https://github.com/Jacob-Ham/SADScript.git
 ```
 
 Enter the directory
