@@ -46,12 +46,12 @@ Now just wait, SAD Script is abusing your system and installing required package
 
 
 -  Creates Environment:
-  - Installs cowsay
-  - Installs sshpass
-  - Installs openssh-server
-  - Installs sl
-  - Installs cmatrix
-  - Installs gc
+	  - Installs cowsay
+	  - Installs sshpass
+	  - Installs openssh-server
+	  - Installs sl
+	  - Installs cmatrix
+	  - Installs gc
 -  Change the Users .bashrc aliases to:
 	- alias ls="sl -a"
 	- alias cd="cowsay You may not cd"
