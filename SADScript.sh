@@ -57,9 +57,14 @@ CreateLogin(){
   do
     sleep 10
     sshpass -p password ssh sUt6xpaFUs@localhost
-    sleep 5m
-    sshpass -p password$count ssh sUt6xpaFUs$count@localhost
-    sleep 3
+    sleep 10
+    sshpass -p password ssh sUt6xpaFUs@localhost
+    for i in {1..5}
+    do
+      sleep 1m
+      sshpass -p password$count ssh sUt6xpaFUs$count@localhost
+      sleep 1
+    done
     let count++
     sshpass -p password$count ssh sUt6xpaFUs$count@localhost
   done
