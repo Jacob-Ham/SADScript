@@ -4,7 +4,9 @@ Defend your Linux machine from a simple adversary who has taken down defenses an
 
 ## About The Project 
 
-SAD Script was developed to emulate common misconfigurations utilized by cyber defense competitions. SAD Script is written in BASH and is simple to understand and fast to run. 
+SAD Script was developed to emulate common misconfigurations utilized by cyber defense competitions. SAD Script is written in BASH and is simple to understand and fast to run.
+
+After SAD Script has run, it's your job to identify what has changed in your system and how to remediate the issues that have been created. Try to kick the hacker out, keep them out, discover how they established perisistance and what changes they made to your system that make it vulnerable to future attacks.
 
 
 ## Getting Started 
