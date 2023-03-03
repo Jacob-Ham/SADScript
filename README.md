@@ -53,7 +53,7 @@ Now just wait, SAD Script is abusing your system and installing required package
 	  - Installs openssh-server
 	  - Installs sl
 	  - Installs cmatrix
-	  - Installs gc
+	  - Installs gcc
 -  Change the Users .bashrc aliases to:
 	- alias ls="sl -a"
 	- alias cd="cowsay You may not cd"
@@ -88,7 +88,7 @@ Now just wait, SAD Script is abusing your system and installing required package
 - Creates a python web server on port 80
 	- Web server exposes files on system. 
 
-### Features coming soon 
+### To-Do
 - Disable more SSH configs: key auth
 - Create another service that re-runs the SAD Script at an interval and reintroduce vulns. Establishes attackers persistance. 
 - Have the emulated "hacker" run commands and steal data. 
