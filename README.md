@@ -57,7 +57,8 @@ Now just wait, SAD Script is abusing your system and installing required package
 	- alias cd="cowsay You may not cd"
 	- alias cat="echo meow"
 	- alias nano="echo nanope"
-	- alias su="echo Super User Dont
+	- alias su="echo Super User Dont"
+	- alias sudo="cmatrix"
 	- Teaching absolute paths and terminal resets
 - Spawn fake systemd services 
 	- Creates directory /root/.script/
