@@ -87,13 +87,15 @@ Now just wait, SAD Script is abusing your system and installing required package
 	- Used to teach checking logged in users and disabling accounts. 
 - Creates a python web server on port 80
 	- Web server exposes files on system. 
+- Creates two SUID perm binaries that give root shell when run (shoutout Jack W for the uber small binary). 
+	- One located in /opt/scripts/shell - easy to catch. 
+	- One located in /usr/bin/curl - more difficult to catch
 
 ### To-Do
 - Disable more SSH configs: key auth
 - Create another service that re-runs the SAD Script at an interval and reintroduce vulns. Establishes attackers persistance. 
 - Have the emulated "hacker" run commands and steal data. 
 - Modify executables 
-- Create SETUID binary in /opt/scripts
 - Installs and enables UFW
 	- Allows all incoming and outgoing to the default rules
 - Spawn reverse shell 
