@@ -96,3 +96,4 @@ Now just wait, SAD Script is abusing your system and installing required package
 - Create SETUID binary in /opt/scripts
 - Installs and enables UFW
 	- Allows all incoming and outgoing to the default rules
+- Spawn reverse shell 
