@@ -210,7 +210,7 @@ CreatePyServer(){
 }
 
 CreateSUID(){
-# Shout Jack W for the uber small binary
+# Shoutout Jack W for the uber small binary
   sudo mkdir /opt/scripts/
   file_location=/opt/scripts/tmp
   cat > $file_location << 'binary'
