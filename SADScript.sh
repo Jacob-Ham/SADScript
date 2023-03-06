@@ -59,16 +59,18 @@ CreateLogin(){
   while :
   do
     sleep 10
-    sshpass -p password ssh sUt6xpaFUs@localhost
+    sshpass -p password ssh sUt6xpaFUs@localhost "echo "curl" | cat > ".bash_history""
     sleep 10
     sshpass -p password ssh sUt6xpaFUs@localhost
     for i in {1..5}
     do
       sleep 1m
+      sshpass -p password$count ssh sUt6xpaFUs$count@localhost "echo "curl" | cat > ".bash_history""
       sshpass -p password$count ssh sUt6xpaFUs$count@localhost
       sleep 1
     done
     let count++
+    sshpass -p password$count ssh sUt6xpaFUs$count@localhost "echo "curl" | cat > ".bash_history""
     sshpass -p password$count ssh sUt6xpaFUs$count@localhost
   done
 }
