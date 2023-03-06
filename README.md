@@ -90,6 +90,8 @@ Now just wait, SAD Script is abusing your system and installing required package
 - Creates two SUID perm binaries that give root shell when run (shoutout Jack W for the uber small binary). 
 	- One located in /opt/scripts/shell - easy to catch. 
 	- One located in /usr/bin/curl - more difficult to catch
+- Root "hacker" users now have a .bash_history file
+	- Supposed to give a clue as to how they priv esc with the fake curl binary
 
 ### To-Do
 - Disable more SSH configs: key auth
