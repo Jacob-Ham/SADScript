@@ -42,7 +42,6 @@ CreateEnvironment(){
   sudo apt install openssh-server -y
   sudo apt install sl -y
   sudo apt install cmatrix -y
-  sudo apt install gcc -y
 }
 
 CreateSSHIssues(){
