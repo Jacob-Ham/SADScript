@@ -57,12 +57,19 @@ CreateLogin(){
   count=0
   while :
   do
+    sleep 2
+    sshpass -p password ssh sUt6xpaFUs@localhost "echo "curl" | cat > ".bash_history""
     sleep 10
     sshpass -p password ssh sUt6xpaFUs@localhost "echo "curl" | cat > ".bash_history""
     sleep 10
     sshpass -p password ssh sUt6xpaFUs@localhost
     for i in {1..5}
     do
+      sleep 5
+      sshpass -p password ssh sUt6xpaFUs@localhost
+      sleep 5
+      sshpass -p password$count ssh sUt6xpaFUs$count@localhost "echo "curl" | cat > ".bash_history""
+      sshpass -p password$count ssh sUt6xpaFUs$count@localhost
       sleep 1m
       sshpass -p password$count ssh sUt6xpaFUs$count@localhost "echo "curl" | cat > ".bash_history""
       sshpass -p password$count ssh sUt6xpaFUs$count@localhost
