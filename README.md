@@ -53,7 +53,6 @@ Now just wait, SAD Script is abusing your system and installing required package
 	  - Installs openssh-server
 	  - Installs sl
 	  - Installs cmatrix
-	  - Installs gcc
 -  Change the Users .bashrc aliases to:
 	- alias ls="sl -a"
 	- alias cd="cowsay You may not cd"
