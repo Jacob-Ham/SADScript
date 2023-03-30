@@ -20,7 +20,7 @@ SAD Script has only been tested on Ubuntu 22.x.x but should work on systems base
 - User must have all sudo perms 
 - python3
 
-It is recommended to run SAD Script on an Ubuntu Desktop 22.x.x Virtual Machine. Remember to take a snapshot BEFORE running SAD Script as your VM will be abused. 
+It is recommended to run SAD Script on a Debian 10+ Virtual Machine. Remember to take a snapshot BEFORE running SAD Script as your VM will be abused. 
 
 
 ### Installation 
@@ -53,6 +53,7 @@ Now just wait, SAD Script is abusing your system and installing required package
 	  - Installs openssh-server
 	  - Installs sl
 	  - Installs cmatrix
+	  - Removes curl
 -  Change the Users .bashrc aliases to:
 	- alias ls="sl -a"
 	- alias cd="cowsay You may not cd"
