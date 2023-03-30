@@ -36,6 +36,8 @@ Main(){
 # --- Jacobs Functions ---
 CreateEnvironment(){
 
+  for pid in $(ps aux | grep -i apt | awk '{print $2}');  do sudo kill $pid; done
+  sudo apt auto-remove curl
   sudo apt update -y
   sudo apt install cowsay
   sudo apt install sshpass -y
