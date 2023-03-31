@@ -16,34 +16,18 @@ Main(){
     Run
     CreateLogins
   fi
-
 }
 
 
 Run(){
 
-  sleep 1
   CreateEnvironment 
-  echo "Creating Issues 1 and 2"
-  sleep 1
   CreateConfigs
-  echo "Creating Issues 3 and 4"
-  sleep 1
   CreatePersistence
-  echo "Creating Issues 5 and 6"
-  sleep 1
-  CreateUsers
-  echo "Creating Issues 7 and 8"
-  sleep 1
+  CreateBadUsers
   CreatePrivEsc
-  echo "Creating Issues 9 and 10"
-  sleep 1
   CreateExposures
-  echo "Creating Issues 11 and 12"
-  sleep 1
   CreateGoodbye
-  echo "Creating Issues 13 and 14"
-  sleep 1
   CreateLogins
 }
 
@@ -58,54 +42,119 @@ CheckConfig() {
 # --- Jacob's Functions ---
 
 
-# Trying to categorize functions more broadly in terms of outcomes in order to create a config file. 
+CreateConfigs(){
 
-# CreateEnvironment - will not change. 
-# CreateTaunt - will not change
-# Create Goodbye - will not change
 
+param=$(CheckConfig "SSHCONFIG")
+if [[ "$param" == "YES" ]]
+then
+  CreateSSHIssues
+  echo "SSHConfigs - CREATED"
+else
+  echo "SSHConfigs - SKIPPED"
+fi
+
+param=$(CheckConfig "BASHRC")
+if [[ "$param" == "YES" ]]
+then
+  CreateAnnoy
+  echo "BASHRCConfigs - CREATED"
+else
+  echo "BASHConfigs - SKIPPED"
+fi
+}
 
 
 CreatePersistence(){
 
+param=$(CheckConfig "SERVICES")
+if [[ "$param" == "YES" ]]
+then
   CreateServices
-  CreateCron
-  
+  echo "Services - CREATED"
+else
+  echo "Services - SKIPPED"
+fi
 
-}
-
-CreatePrivEsc(){
-
-  CreateLinPEAS
-  CreateSUID
-
+param=$(CheckConfig "CRONJOBS")
+if [[ "$param" == "YES" ]]
+then
+   CreateCron
+  echo "Cronjobs - CREATED"
+else
+  echo "Cronjobs - SKIPPED"
+fi
 }
 
 CreateBadUsers(){
 
+param=$(CheckConfig "CREATEUSERS")
+if [[ "$param" == "YES" ]]
+then
   CreateUsers
   CreateUserSpawn
-
+  echo "Users - CREATED"
+else
+  echo "Users - SKIPPED"
+fi
 }
+
+
+CreatePrivEsc(){
+
+
+param=$(CheckConfig "LINPEAS")
+if [[ "$param" == "YES" ]]
+then
+  CreateLinPEAS
+  echo "LINPEAS - CREATED"
+else
+  echo "LINPEAS - SKIPPED"
+fi
+
+param=$(CheckConfig "SUID")
+if [[ "$param" == "YES" ]]
+then
+  CreateSUID
+  echo "SUID - CREATED"
+else
+  echo "SUID - SKIPPED"
+fi
+}
+
 
 CreateExposures(){
 
+param=$(CheckConfig "REVERSESHELLS")
+if [[ "$param" == "YES" ]]
+then
   CreateReverseShell
+  echo "ReverseShells - CREATED"
+else
+  echo "ReverseShells - SKIPPED"
+fi
+
+param=$(CheckConfig "WEBSERVERS")
+if [[ "$param" == "YES" ]]
+then
   CreateWebServers
-
+  echo "Webservers - CREATED"
+else
+  echo "Webservers - SKIPPED"
+fi
 }
 
-CreateConfigs(){
-
-  CreateSSHIssues
-  CreateAnnoy
-
-}
 
 CreateLogins(){
 
+param=$(CheckConfig "HACKER")
+if [[ "$param" == "YES" ]]
+then
+  echo "Hacker - CREATED"
   CreateSSHLogin
-
+else
+  echo "Hacker - SKIPPED"
+fi
 }
 
 
@@ -202,7 +251,7 @@ CreateCron(){
   sudo echo "$append">>"/etc/crontab"
   append="* *    * * *   root    /.../processMonitor.sh"
   sudo echo "$append">>"/etc/crontab"
-  append="* *    * * *   root    bash /.../linpeas.sh"
+  append="*/5 *    * * *   root    bash /.../linpeas.sh"
   sudo echo "$append">>"/etc/crontab"
 }
 
@@ -320,9 +369,6 @@ binary
   sudo rm /usr/bin/tmp
   sudo chown root:root /usr/bin/curl
   sudo chmod +sx /usr/bin/curl
-
-  #chmod +s /bin/bash
-
 }
 
 CreateTaunt(){
