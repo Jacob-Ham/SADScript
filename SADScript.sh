@@ -3,8 +3,6 @@
 Main(){
 
   CreateTaunt
-  sleep 1
-  
   param=$(CheckConfig "SILENT")
   if [[ "$param" == "YES" ]]
   then
@@ -18,7 +16,6 @@ Main(){
   fi
 }
 
-
 Run(){
 
   CreateEnvironment 
@@ -31,19 +28,15 @@ Run(){
   CreateLogins
 }
 
-
 CheckConfig() {
 
   isYES=$(cat config.conf | grep "$1" | cut -d "=" -f2)
   echo "$isYES"
 }
 
-
 # --- Jacob's Functions ---
 
-
 CreateConfigs(){
-
 
 param=$(CheckConfig "SSHCONFIG")
 if [[ "$param" == "YES" ]]
