@@ -15,8 +15,8 @@ SAD Script is easy!
 
 ### Prerequisites
 
-SAD Script has only been tested on Ubuntu 22.x.x but should work on systems based on systemd that have the following:
-- APT Package Manager
+SAD Script has only been tested on Ubuntu 22.x.x and Debian 10+ but should work on systems based on systemd that have the following:
+- Debian
 - User must have all sudo perms 
 - python3
 
