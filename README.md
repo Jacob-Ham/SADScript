@@ -44,6 +44,27 @@ sudo bash SADScript.sh
 
 Now just wait, SAD Script is abusing your system and installing required packages. This usually takes about 1 minute but can take longer depending on your system and internet speed.
 
+## Script Flow
+
+The script performs the following actions:
+
+1.  Calls the `CreateTaunt` function to print a taunting message to the console.
+2.  Calls the `CheckConfig` function to check the configuration settings in the `config.conf` file.
+3.  Based on the configuration settings, either:
+    -   Creates the environment silently, i.e., without any output to the console, by running the `Run` function with output redirected to `/dev/null`.  
+    -   Creates the environment with normal output to the console by running the `Run` function.
+4.  The `Run` function calls a series of sub-functions that create various security issues and configurations, including:
+    -   `CreateEnvironment`: Updates the system and installs various tools and packages.
+    -   `CreateConfigs`: Creates configurations related to SSH and bash shell.
+    -   `CreatePersistence`: Creates services and cron jobs to demonstrate attacker persistence.
+    -   `CreateBadUsers`: Creates a ton of new users.
+    -   `CreatePrivEsc`: Creates vulnerabilities that can be exploited for privilege escalation.
+    -   `CreateExposures`: Creates vulnerabilities that can be exploited for remote access.
+    -   `CreateLogins`: Creates a hacker user with SSH access to the system.
+5.  Each sub-function checks the configuration settings in `config.conf` to determine whether to create the vulnerability or skip it.
+6.  The `CreateSSHLogin` function creates a persistent SSH connection to the hacked system that is used by the hacker to maintain access and perform further attacks.
+
+
 ## What does SAD Script Cover? 
 
 
